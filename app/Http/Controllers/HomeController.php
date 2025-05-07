@@ -53,8 +53,4 @@ public function detailshow($id){
 
     
     
-    public function showAuthForm()
-    {
-        return view('auth');
-    }
 }

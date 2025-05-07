@@ -737,13 +737,10 @@
                     </a>
                     <div class="divider102"></div>
                     <!-- Bouton de déconnexion -->
-                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                        @csrf
-                        <button type="submit" class="dropdown-item102" style="width: 100%; text-align: left; background: none; border: none; cursor: pointer;">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                            <span>Se déconnecter</span>
-                        </button>
-                    </form>
+                    <a href="#" class="dropdown-item102">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>deconnexion</span>
+                    </a>
                 </div>
             </button>
         </div> 

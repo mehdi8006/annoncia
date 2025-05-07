@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nom', 100);
             $table->string('email', 100)->unique();
             $table->string('telephon', 20);
-            $table->string('mot_de_passe', 255);
+            $table->string('password', 255);
             $table->string('ville', 100);
             $table->enum('type_utilisateur', ['admin', 'normal'])->default('normal');
             $table->enum('statut', ['en_attente', 'valide', 'supprime'])->default('en_attente');

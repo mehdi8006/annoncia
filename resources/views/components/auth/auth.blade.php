@@ -1,4 +1,11 @@
-<style>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annoncia - Connexion/Inscription</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <style>
     /* Container et Wrapper */
     .auth-wrapper {
         display: flex;
@@ -221,30 +228,8 @@
         }
     }
  
-    /* Alert messages */
-    .alert {
-        padding: 15px;
-        margin-bottom: 20px;
-        border-radius: 8px;
-    }
+   
     
-    .alert-success {
-        background-color: #d1fae5;
-        color: #064e3b;
-        border: 1px solid #a7f3d0;
-    }
-    
-    .alert-danger {
-        background-color: #fee2e2;
-        color: #b91c1c;
-        border: 1px solid #fecaca;
-    }
-    
-    .error-message {
-        color: #b91c1c;
-        font-size: 12px;
-        margin-top: 5px;
-    }
  
     /* Responsive design */
     @media (max-width: 750px) {
@@ -270,148 +255,149 @@
             font-size: 28px;
         }
     }
-</style>
+    /* Styles pour le checkbox "Se souvenir de moi" */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-top: 16px;
+        }
 
-<div class="auth-wrapper">
-    <div class="auth-container">
-        <!-- Section gauche (Branding) -->
-        <div class="auth-left">
-            <i class="fa-solid fa-bag-shopping brand-logo"></i>
-            <h2 class="brand-title">Achetez et vendez facilement</h2>
-            <p class="brand-subtitle">Annoncia, votre <a href="#" class="brand-link">plateforme de confiance</a> pour les</p>
-            <p class="brand-caption">transactions en ligne sécurisées.</p>
-        </div>
- 
-        <!-- Section droite (Formulaires) -->
-        <div class="auth-right">
-            <div class="auth-header">
-                <h1 class="auth-title">Connectez-vous à Annoncia</h1>
-            </div>
+        .form-checkbox {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            accent-color: #3b82f6;
+            cursor: pointer;
+        }
 
-            <!-- Flash Messages -->
-            @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
+        .checkbox-label {
+            font-size: 14px;
+            color: #4b5563;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-wrapper">
+        <div class="auth-container">
+            <!-- Section gauche (Branding) -->
+            <div class="auth-left">
+                <i class="fa-solid fa-bag-shopping brand-logo"></i>
+                <h2 class="brand-title">Achetez et vendez facilement</h2>
+                <p class="brand-subtitle">Annoncia, votre <a href="#" class="brand-link">plateforme de confiance</a> pour les</p>
+                <p class="brand-caption">transactions en ligne sécurisées.</p>
             </div>
-            @endif
-
-            @if(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-            @endif
- 
-            <!-- Navigation entre connexion et inscription -->
-            <div class="auth-tabs">
-                <button class="auth-tab {{ !$errors->any() || $errors->has('email') && !$errors->has('name') ? 'active' : '' }}" onclick="switchTab('login')">Connexion</button>
-                <button class="auth-tab {{ $errors->has('name') ? 'active' : '' }}" onclick="switchTab('register')">Inscription</button>
-            </div>
- 
-            <!-- Formulaire de connexion -->
-            <form id="loginForm" class="auth-form {{ !$errors->any() || $errors->has('email') && !$errors->has('name') ? 'active' : '' }}" action="{{ route('login') }}" method="POST">
-                @csrf
-                
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email" class="form-input" placeholder="Entrez votre email" required value="{{ old('email') }}">
-                    @error('email')
-                    <div class="error-message">{{ $message }}</div>
-                    @enderror
+     
+            <!-- Section droite (Formulaires) -->
+            <div class="auth-right">
+                <div class="auth-header">
+                    <h1 class="auth-title">Connectez-vous à Annoncia</h1>
                 </div>
- 
-                <div class="form-group">
-                    <label class="form-label">Mot de passe</label>
-                    <input type="password" name="password" class="form-input" placeholder="Entrez votre mot de passe" required>
-                    @error('password')
-                    <div class="error-message">{{ $message }}</div>
-                    @enderror
-                    <div class="forgot-password">
-                        <a href="#" class="forgot-password-link">Mot de passe oublié ?</a>
+    
+                <!-- Flash Messages -->
+                <div id="success-alert" class="alert alert-success" style="display: none;"></div>
+                <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
+     
+                <!-- Navigation entre connexion et inscription -->
+                <div class="auth-tabs">
+                    <button class="auth-tab active" onclick="switchTab('login')">Connexion</button>
+                    <button class="auth-tab" onclick="switchTab('register')">Inscription</button>
+                </div>
+     
+                <!-- Formulaire de connexion -->
+               <!-- Formulaire de connexion -->
+                <form id="loginForm" class="auth-form active" action="login" method="POST">
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-input" placeholder="Entrez votre email" required>
                     </div>
-                </div>
- 
-                <button type="submit" class="submit-btn">Connexion</button>
-            </form>
- 
-            <!-- Formulaire d'inscription -->
-            <form id="registerForm" class="auth-form {{ $errors->has('name') ? 'active' : '' }}" action="{{ route('register') }}" method="POST">
-                @csrf
-                
-                <div class="form-group">
-                    <label class="form-label">Nom complet</label>
-                    <input type="text" name="name" class="form-input" placeholder="Entrez votre nom complet" required value="{{ old('name') }}">
-                    @error('name')
-                    <div class="error-message">{{ $message }}</div>
-                    @enderror
-                </div>
-            
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email" class="form-input" placeholder="Entrez votre email" required value="{{ old('email') }}">
-                    @error('email')
-                    <div class="error-message">{{ $message }}</div>
-                    @enderror
-                </div>
-            
-                <div class="form-group">
-                    <label class="form-label">Numéro de téléphone</label>
-                    <div class="phone-input-wrapper">
-                        <input type="tel" name="phone" class="phone-input" placeholder="Ex: 623332123" required value="{{ old('phone') }}">
+
+                    <div class="form-group">
+                        <label class="form-label">Mot de passe</label>
+                        <input type="password" name="password" class="form-input" placeholder="Entrez votre mot de passe" required>
+                        <div class="forgot-password">
+                            <a href="reset-password.html" class="forgot-password-link">Mot de passe oublié ?</a>
+                        </div>
                     </div>
-                    @error('phone')
-                    <div class="error-message">{{ $message }}</div>
-                    @enderror
-                </div>
-            
-                <div class="form-group">
-                    <label class="form-label">Mot de passe</label>
-                    <input type="password" name="password" class="form-input" placeholder="Créez un mot de passe" required>
-                    @error('password')
-                    <div class="error-message">{{ $message }}</div>
-                    @enderror
-                </div>
-            
-                <div class="form-group">
-                    <label class="form-label">Confirmez le mot de passe</label>
-                    <input type="password" name="password_confirmation" class="form-input" placeholder="Confirmez le mot de passe" required>
-                </div>
-            
-                <button type="submit" class="submit-btn">S'inscrire</button>
-            </form>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" name="remember" id="remember" class="form-checkbox">
+                        <label for="remember" class="checkbox-label">Se souvenir de moi</label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Connexion</button>
+                </form>
+                <!-- Formulaire d'inscription -->
+                <form id="registerForm" class="auth-form" action="register" method="POST">
+                    
+                    <div class="form-group">
+                        <label class="form-label">Nom complet</label>
+                        <input type="text" name="name" class="form-input" placeholder="Entrez votre nom complet" required>
+                    </div>
+                
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-input" placeholder="Entrez votre email" required>
+                    </div>
+                
+                    <div class="form-group">
+                        <label class="form-label">Numéro de téléphone</label>
+                        <div class="phone-input-wrapper">
+                            <input type="tel" name="phone" class="phone-input" placeholder="Ex: 623332123" required>
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label class="form-label">Mot de passe</label>
+                        <input type="password" name="password" class="form-input" placeholder="Créez un mot de passe" required>
+                    </div>
+                
+                    <div class="form-group">
+                        <label class="form-label">Confirmez le mot de passe</label>
+                        <input type="password" name="password_confirmation" class="form-input" placeholder="Confirmez le mot de passe" required>
+                    </div>
+                
+                    <button type="submit" class="submit-btn">S'inscrire</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
- 
-<script>
-    // Fonction pour basculer entre connexion et inscription
-    function switchTab(tab) {
-        // Désactiver tous les onglets et formulaires
-        document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+     
+    <script>
+        // Fonction pour basculer entre connexion et inscription
+        function switchTab(tab) {
+            // Désactiver tous les onglets et formulaires
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+            
+            // Activer l'onglet cliqué
+            document.querySelectorAll('.auth-tab').forEach(t => {
+                if (tab === 'login' && t.textContent.trim() === 'Connexion') {
+                    t.classList.add('active');
+                } else if (tab === 'register' && t.textContent.trim() === 'Inscription') {
+                    t.classList.add('active');
+                }
+            });
+            
+            // Activer le formulaire correspondant
+            if (tab === 'login') {
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                document.getElementById('registerForm').classList.add('active');
+            }
+        }
         
-        // Activer l'onglet cliqué
-        document.querySelectorAll('.auth-tab').forEach(t => {
-            if (tab === 'login' && t.textContent.trim() === 'Connexion') {
-                t.classList.add('active');
-            } else if (tab === 'register' && t.textContent.trim() === 'Inscription') {
-                t.classList.add('active');
+        // Initialiser le bon onglet au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check URL parameters for any error indications
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('register')) {
+                switchTab('register');
+            } else {
+                switchTab('login');
             }
         });
-        
-        // Activer le formulaire correspondant
-        if (tab === 'login') {
-            document.getElementById('loginForm').classList.add('active');
-        } else {
-            document.getElementById('registerForm').classList.add('active');
-        }
-    }
-    
-    // Initialiser le bon onglet au chargement (basé sur les erreurs)
-    document.addEventListener('DOMContentLoaded', function() {
-        @if($errors->has('name'))
-        switchTab('register');
-        @else
-        switchTab('login');
-        @endif
-    });
-</script>
+    </script>
+</body>
+</html>
