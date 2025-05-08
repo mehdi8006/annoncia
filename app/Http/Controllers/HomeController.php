@@ -53,5 +53,4 @@ public function detailshow($id){
 
     
     
-    
 }
