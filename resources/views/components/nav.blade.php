@@ -527,71 +527,19 @@
             
             <!-- Menu déroulant des catégories -->
             <div class="dropdown-menu">
+                <div class="section-header">Toutes les categorie</div>
+
                 <!-- Section 1: Catégories principales -->
                 <div class="dropdown-section">
                     <a href="#" class="dropdown-item">
                         <i class="fa-solid fa-house"></i>
                         <span>Immobilier</span>
                     </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-car"></i>
-                        <span>Véhicules</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-briefcase"></i>
-                        <span>Emploi</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                        <span>Formation</span>
-                    </a>
+                   
                 </div>
                 
-                <!-- Séparateur -->
-                <div class="divider"></div>
                 
-                <!-- Section 2: Produits -->
-                <div class="dropdown-section">
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-mobile-alt"></i>
-                        <span>Électronique</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-couch"></i>
-                        <span>Maison & Jardin</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-shirt"></i>
-                        <span>Mode & Accessoires</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-gamepad"></i>
-                        <span>Loisirs & Divertissement</span>
-                    </a>
-                </div>
                 
-                <!-- Séparateur -->
-                <div class="divider"></div>
-                
-                <!-- Section 3: Autres catégories -->
-                <div class="dropdown-section">
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-hammer"></i>
-                        <span>Services</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-paw"></i>
-                        <span>Animaux</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-book"></i>
-                        <span>Livres & Magazines</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-gift"></i>
-                        <span>Autres</span>
-                    </a>
-                </div>
             </div>
         </div>
 
@@ -613,70 +561,9 @@
                         <i class="fa-solid fa-map-pin"></i>
                         <span>Agadir</span>
                     </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Assilah</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Beni Mellal</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Chefchaouen</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>El Jadida</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Essaouira</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Kenitra</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Larache</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Meknes</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Mohammedia</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Nador</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Ouarzazate</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Oujda</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Safi</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Sale</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Settat</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Tetouan</span>
-                    </a>
+                  
+                  
+                    
                 </div>
             </div>
         </div>
@@ -711,7 +598,7 @@
                 <div class="profile-icon102">
                     <i class="fa-solid fa-user"></i>
                 </div>
-                <span class="profile-name102">{{ Auth::user()->nom }}</span>
+                <span class="profile-name102"></span>
                 <i class="fa-solid fa-chevron-down chevron102"></i>
                 
                 <div class="dropdown-menu102">
@@ -727,23 +614,17 @@
                         <i class="fa-regular fa-heart"></i>
                         <span>Mes favoris</span>
                     </a>
-                    <a href="#" class="dropdown-item102">
-                        <i class="fa-regular fa-comments"></i>
-                        <span>Chat</span>
-                    </a>
+                   
                     <a href="#" class="dropdown-item102">
                         <i class="fa-solid fa-gear"></i>
                         <span>Réglages</span>
                     </a>
                     <div class="divider102"></div>
                     <!-- Bouton de déconnexion -->
-                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                        @csrf
-                        <button type="submit" class="dropdown-item102" style="width: 100%; text-align: left; background: none; border: none; cursor: pointer;">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                            <span>Se déconnecter</span>
-                        </button>
-                    </form>
+                   <a href="#" class="dropdown-item102">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>deconnexion</span>
+                    </a>
                 </div>
             </button>
         </div> 

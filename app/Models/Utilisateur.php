@@ -25,7 +25,7 @@ class Utilisateur extends Model
         'nom',
         'email',
         'telephon',
-        'mot_de_passe',
+        'password',
         'ville',
         'type_utilisateur',
         'statut'
@@ -37,7 +37,7 @@ class Utilisateur extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        'mot_de_passe',
+        'password',
     ];
 
     /**

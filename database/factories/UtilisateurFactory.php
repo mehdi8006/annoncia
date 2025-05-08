@@ -37,7 +37,7 @@ class UtilisateurFactory extends Factory
             'nom' => $this->faker->randomElement($this->prenoms) . ' ' . $this->faker->randomElement($this->noms),
             'email' => $this->faker->unique()->safeEmail,
             'telephon' => $telephon, // Added the missing telephon field
-            'mot_de_passe' => Hash::make('password'), // Mot de passe par défaut pour les tests
+            'password' => Hash::make('password'), // Mot de passe par défaut pour les tests
             'ville' => $this->faker->randomElement($this->villes),
             'type_utilisateur' => $this->faker->randomElement(['admin', 'normal']),
             'statut' => $this->faker->randomElement(['en_attente', 'valide', 'supprime']),

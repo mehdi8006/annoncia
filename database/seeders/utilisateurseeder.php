@@ -13,7 +13,7 @@ class UtilisateurSeeder extends Seeder
         Utilisateur::factory()->admin()->create([
             'nom' => 'Admin Principal',
             'email' => 'admin@annoncia.ma',
-            'mot_de_passe' => bcrypt('password'),
+            'password' => bcrypt('password'),
             'ville' => 'Casablanca',
         ]);
         
