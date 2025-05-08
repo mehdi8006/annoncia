@@ -232,12 +232,11 @@
             <!-- Section droite (Formulaire de réinitialisation) -->
             <div class="auth-right">
                 <div class="auth-header">
-                    <h<<<<<<< HEAD
+                    <h1 class="auth-title">Réinitialisation du mot de passe</h1>
+                    <p class="auth-subtitle">Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.</p>
+                </div>
+    
                
-                <!-- Formulaire de réinitialisation -->
-                <form id="resetPasswordForm" class="auth-form" action="reset-password" method="POST">
-                    <div class="form-group">
-                 
                 <!-- Formulaire de réinitialisation -->
                 <form id="resetPasswordForm" class="auth-form" action="reset-password" method="POST">
                     <div class="form-group">
@@ -252,9 +251,6 @@
             </div>
         </div>
     </div>
-     
-    
-
      
     
 </body>
