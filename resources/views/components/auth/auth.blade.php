@@ -147,6 +147,11 @@
         box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         background-color: white;
     }
+    
+    .form-input.is-invalid {
+        border-color: #ef4444;
+        background-color: #fef2f2;
+    }
  
     .phone-input-wrapper {
         display: flex;
@@ -275,6 +280,32 @@
             color: #4b5563;
             cursor: pointer;
         }
+        
+        /* Alert messages styling */
+        .alert {
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .alert-success {
+            background-color: #d1fae5;
+            border: 1px solid #10b981;
+            color: #065f46;
+        }
+        
+        .alert-danger {
+            background-color: #fee2e2;
+            border: 1px solid #ef4444;
+            color: #b91c1c;
+        }
+        
+        .error-feedback {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -295,29 +326,45 @@
                 </div>
     
                 <!-- Flash Messages -->
-                <div id="success-alert" class="alert alert-success" style="display: none;"></div>
-                <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
+                @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
+                
+                @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+                @endif
      
                 <!-- Navigation entre connexion et inscription -->
                 <div class="auth-tabs">
-                    <button class="auth-tab active" onclick="switchTab('login')">Connexion</button>
-                    <button class="auth-tab" onclick="switchTab('register')">Inscription</button>
+                    <button class="auth-tab {{ !session('register') ? 'active' : '' }}" onclick="switchTab('login')">Connexion</button>
+                    <button class="auth-tab {{ session('register') ? 'active' : '' }}" onclick="switchTab('register')">Inscription</button>
                 </div>
      
                 <!-- Formulaire de connexion -->
-               <!-- Formulaire de connexion -->
-                <form id="loginForm" class="auth-form active" action="login" method="POST">
-                    
+                <form id="loginForm" class="auth-form {{ !session('register') ? 'active' : '' }}" action="{{ route('login') }}" method="POST">
+                    @csrf
                     <div class="form-group">
                         <label class="form-label">Email</label>
-                        <input type="email" name="email" class="form-input" placeholder="Entrez votre email" required>
+                        <input type="email" name="email" class="form-input {{ $errors->has('email') && !session('register') ? 'is-invalid' : '' }}" 
+                              placeholder="Entrez votre email" value="{{ old('email') }}" required>
+                        @if($errors->has('email') && !session('register'))
+                            <div class="error-feedback">{{ $errors->first('email') }}</div>
+                        @endif
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Mot de passe</label>
-                        <input type="password" name="password" class="form-input" placeholder="Entrez votre mot de passe" required>
+                        <input type="password" name="password" class="form-input {{ $errors->has('password') && !session('register') ? 'is-invalid' : '' }}" 
+                              placeholder="Entrez votre mot de passe" required>
+                        @if($errors->has('password') && !session('register'))
+                            <div class="error-feedback">{{ $errors->first('password') }}</div>
+                        @endif
                         <div class="forgot-password">
-                            <a href="reset-password.html" class="forgot-password-link">Mot de passe oublié ?</a>
+                            <a href="{{ route('password.request') }}" class="forgot-password-link">Mot de passe oublié ?</a>
                         </div>
                     </div>
 
@@ -328,34 +375,52 @@
 
                     <button type="submit" class="submit-btn">Connexion</button>
                 </form>
+                
                 <!-- Formulaire d'inscription -->
-                <form id="registerForm" class="auth-form" action="register" method="POST">
-                    
+                <form id="registerForm" class="auth-form {{ session('register') ? 'active' : '' }}" action="{{ route('register') }}" method="POST">
+                    @csrf
                     <div class="form-group">
                         <label class="form-label">Nom complet</label>
-                        <input type="text" name="name" class="form-input" placeholder="Entrez votre nom complet" required>
+                        <input type="text" name="name" class="form-input {{ $errors->has('name') && session('register') ? 'is-invalid' : '' }}" 
+                               placeholder="Entrez votre nom complet" value="{{ old('name') }}" required>
+                        @if($errors->has('name') && session('register'))
+                            <div class="error-feedback">{{ $errors->first('name') }}</div>
+                        @endif
                     </div>
                 
                     <div class="form-group">
                         <label class="form-label">Email</label>
-                        <input type="email" name="email" class="form-input" placeholder="Entrez votre email" required>
+                        <input type="email" name="email" class="form-input {{ $errors->has('email') && session('register') ? 'is-invalid' : '' }}" 
+                               placeholder="Entrez votre email" value="{{ old('email') }}" required>
+                        @if($errors->has('email') && session('register'))
+                            <div class="error-feedback">{{ $errors->first('email') }}</div>
+                        @endif
                     </div>
                 
                     <div class="form-group">
                         <label class="form-label">Numéro de téléphone</label>
                         <div class="phone-input-wrapper">
-                            <input type="tel" name="phone" class="phone-input" placeholder="Ex: 623332123" required>
+                            <input type="tel" name="phone" class="phone-input {{ $errors->has('phone') && session('register') ? 'is-invalid' : '' }}" 
+                                  placeholder="Ex: 623332123" value="{{ old('phone') }}" required>
                         </div>
+                        @if($errors->has('phone') && session('register'))
+                            <div class="error-feedback">{{ $errors->first('phone') }}</div>
+                        @endif
                     </div>
                 
                     <div class="form-group">
                         <label class="form-label">Mot de passe</label>
-                        <input type="password" name="password" class="form-input" placeholder="Créez un mot de passe" required>
+                        <input type="password" name="password" class="form-input {{ $errors->has('password') && session('register') ? 'is-invalid' : '' }}" 
+                               placeholder="Créez un mot de passe" required>
+                        @if($errors->has('password') && session('register'))
+                            <div class="error-feedback">{{ $errors->first('password') }}</div>
+                        @endif
                     </div>
                 
                     <div class="form-group">
                         <label class="form-label">Confirmez le mot de passe</label>
-                        <input type="password" name="password_confirmation" class="form-input" placeholder="Confirmez le mot de passe" required>
+                        <input type="password" name="password_confirmation" class="form-input" 
+                               placeholder="Confirmez le mot de passe" required>
                     </div>
                 
                     <button type="submit" class="submit-btn">S'inscrire</button>

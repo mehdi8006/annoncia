@@ -123,6 +123,11 @@
         box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         background-color: white;
     }
+    
+    .form-input.is-invalid {
+        border-color: #ef4444;
+        background-color: #fef2f2;
+    }
  
     /* Boutons */
     .submit-btn {
@@ -174,6 +179,12 @@
         background-color: #fee2e2;
         border: 1px solid #ef4444;
         color: #b91c1c;
+    }
+    
+    .error-feedback {
+        color: #ef4444;
+        font-size: 12px;
+        margin-top: 5px;
     }
     
     /* Animation */
@@ -236,22 +247,37 @@
                     <p class="auth-subtitle">Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.</p>
                 </div>
     
+                <!-- Flash Messages -->
+                @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
+                
+                @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+                @endif
                
                 <!-- Formulaire de réinitialisation -->
-                <form id="resetPasswordForm" class="auth-form" action="reset-password" method="POST">
+                <form id="resetPasswordForm" class="auth-form" action="{{ route('password.email') }}" method="POST">
+                    @csrf
                     <div class="form-group">
                         <label class="form-label">Email</label>
-                        <input type="email" name="email" class="form-input" placeholder="Entrez votre email" required>
+                        <input type="email" name="email" class="form-input {{ $errors->has('email') ? 'is-invalid' : '' }}" 
+                               placeholder="Entrez votre email" value="{{ old('email') }}" required>
+                        @if($errors->has('email'))
+                            <div class="error-feedback">{{ $errors->first('email') }}</div>
+                        @endif
                     </div>
      
                     <button type="submit" class="submit-btn">Envoyer le lien de réinitialisation</button>
                     
-                    <a href="" class="back-link">Retour à la page de connexion</a>
+                    <a href="{{ route('form') }}" class="back-link">Retour à la page de connexion</a>
                 </form>
             </div>
         </div>
     </div>
-     
-    
 </body>
 </html>

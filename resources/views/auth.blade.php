@@ -8,9 +8,15 @@
 </head>
 <body>
    @extends('layouts.masterhome') 
+  
    @section('main')
-   <x-auth.auth />
-   
+        @if ($page=='log')
+        <x-auth.auth />
+
+        @endif
+        @if ($page=='forgot')
+        <x-auth.forgotpwd/>
+        @endif
    @endsection
 </body>
 </html>

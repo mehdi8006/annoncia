@@ -21,6 +21,8 @@ return new class extends Migration
             $table->enum('type_utilisateur', ['admin', 'normal'])->default('normal');
             $table->enum('statut', ['en_attente', 'valide', 'supprime'])->default('en_attente');
             $table->timestamp('date_inscription')->useCurrent();
+            $table->rememberToken()->nullable();
+
             $table->timestamps();
         });
     }

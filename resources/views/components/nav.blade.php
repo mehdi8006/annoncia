@@ -504,6 +504,14 @@
             position: relative;
             display: inline-block;
         }
+       .logout i {
+            
+            color:rgb(255, 0, 0);
+        }
+        .logout{
+
+            color:rgb(255, 0, 0);
+        }
     </style>
 </head>
 <body>
@@ -580,64 +588,67 @@
     </div>
 
     <!-- Actions (boutons de connexion et publication) -->
-    <div class="actions">
-        <!-- Section invité - visible uniquement pour les utilisateurs non connectés -->
-        @guest
-        <a href="{{ route('form') }}">
-            <button class="btn btn-login" id="login-btn">
-                <i class="fa-solid fa-right-to-bracket"></i>
-                Connexion
-            </button>
-        </a>  
-        @endguest   
-       
-        <!-- Section utilisateur connecté - visible uniquement pour les utilisateurs connectés -->
-        @auth
-        <div class="demo-container102">
-            <button class="profile-button102">
-                <div class="profile-icon102">
-                    <i class="fa-solid fa-user"></i>
-                </div>
-                <span class="profile-name102"></span>
-                <i class="fa-solid fa-chevron-down chevron102"></i>
-                
-                <div class="dropdown-menu102">
-                    <a href="#" class="dropdown-item102">
-                        <i class="fa-regular fa-newspaper"></i>
-                        <span>Mes annonces</span>
-                    </a>
-                    <a href="#" class="dropdown-item102">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <span>Mes commandes</span>
-                    </a>
-                    <a href="#" class="dropdown-item102">
-                        <i class="fa-regular fa-heart"></i>
-                        <span>Mes favoris</span>
-                    </a>
-                   
-                    <a href="#" class="dropdown-item102">
-                        <i class="fa-solid fa-gear"></i>
-                        <span>Réglages</span>
-                    </a>
-                    <div class="divider102"></div>
-                    <!-- Bouton de déconnexion -->
-                   <a href="#" class="dropdown-item102">
-                        <i class="fa-solid fa-gear"></i>
-                        <span>deconnexion</span>
-                    </a>
-                </div>
-            </button>
-        </div> 
-        @endauth   
-       
-        <!-- Bouton déposer une annonce (visible pour tous) -->
-        <a href="">
-            <button class="btn btn-publish" id="publish-btn">
-                <i class="fa-solid fa-square-plus"></i>
-                Déposer une annonce 
-            </button>
-        </a>
-    </div>
+    <!-- Update only the auth-related section in the navigation bar -->
+
+<!-- Inside the navigation bar, replace the actions div with this: -->
+<div class="actions">
+    <!-- Section invité - visible uniquement pour les utilisateurs non connectés -->
+    @if (!session()->has('user_id'))
+    <a href="{{ route('form') }}">
+        <button class="btn btn-login" id="login-btn">
+            <i class="fa-solid fa-right-to-bracket"></i>
+           Se Connecter
+        </button>
+    </a>  
+    @endif   
+   
+    <!-- Section utilisateur connecté - visible uniquement pour les utilisateurs connectés -->
+    @if (session()->has('user_id'))
+    <div class="demo-container102">
+        <button class="profile-button102">
+            <div class="profile-icon102">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <span class="profile-name102">{{ session('user_name') }}</span>
+            <i class="fa-solid fa-chevron-down chevron102"></i>
+            
+            <div class="dropdown-menu102">
+                <a href="#" class="dropdown-item102">
+                    <i class="fa-regular fa-newspaper"></i>
+                    <span>Mes annonces</span>
+                </a>
+                <a href="#" class="dropdown-item102">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>Mes commandes</span>
+                </a>
+                <a href="#" class="dropdown-item102">
+                    <i class="fa-regular fa-heart"></i>
+                    <span>Mes favoris</span>
+                </a>
+               
+                <a href="#" class="dropdown-item102">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Réglages</span>
+                </a>
+                <div class="divider102"></div>
+                <!-- Bouton de déconnexion -->
+               <a href="{{ route('logout') }}" class="dropdown-item102">
+                    <div class="logout">  <i class="fa-solid fa-sign-out-alt"></i>
+                    <span>Se Déconnecter</span></div> 
+                </a>
+            </div>
+        </button>
+    </div> 
+    @endif   
+   
+    <!-- Bouton déposer une annonce (visible pour tous) -->
+    <a href="">
+        <button class="btn btn-publish" id="publish-btn">
+            <i class="fa-solid fa-square-plus"></i>
+            Déposer une annonce 
+        </button>
+    </a>
+</div>
 </nav>
 
    
