@@ -504,6 +504,26 @@
             position: relative;
             display: inline-block;
         }
+        
+        /* Alert messages */
+        .alert {
+            padding: 12px 16px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .alert-success {
+            background-color: #d1fae5;
+            border: 1px solid #10b981;
+            color: #065f46;
+        }
+        
+        .alert-danger {
+            background-color: #fee2e2;
+            border: 1px solid #ef4444;
+            color: #b91c1c;
+        }
     </style>
 </head>
 <body>
@@ -511,9 +531,22 @@
     <!-- Navigation bar with logout button (in the authenticated user dropdown) -->
 <nav class="navbar" role="navigation" aria-label="Barre de navigation principale">
     <!-- Logo avec icône shopping -->
-    <div class="logo-text">
+    <a href="/home" class="logo-text">
         <i class="fa-solid fa-bag-shopping"></i> Annoncia
+    </a>
+
+    <!-- Flash Messages for Navbar -->
+    @if(Session::has('success'))
+    <div class="alert alert-success">
+        {{ Session::get('success') }}
     </div>
+    @endif
+    
+    @if(Session::has('error'))
+    <div class="alert alert-danger">
+        {{ Session::get('error') }}
+    </div>
+    @endif
 
     <!-- Navigation principale contenant les dropdowns et la recherche -->
     <div class="main-navigation">
@@ -529,69 +562,18 @@
             <div class="dropdown-menu">
                 <!-- Section 1: Catégories principales -->
                 <div class="dropdown-section">
+                    <div class="section-header">Toutes les categories</div>
+
+                    @foreach($allCategories as $categorie)
+
                     <a href="#" class="dropdown-item">
                         <i class="fa-solid fa-house"></i>
-                        <span>Immobilier</span>
+                        <span>{{ $categorie->nom }}</span>
                     </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-car"></i>
-                        <span>Véhicules</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-briefcase"></i>
-                        <span>Emploi</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                        <span>Formation</span>
-                    </a>
+                    @endforeach
                 </div>
                 
-                <!-- Séparateur -->
-                <div class="divider"></div>
-                
-                <!-- Section 2: Produits -->
-                <div class="dropdown-section">
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-mobile-alt"></i>
-                        <span>Électronique</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-couch"></i>
-                        <span>Maison & Jardin</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-shirt"></i>
-                        <span>Mode & Accessoires</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-gamepad"></i>
-                        <span>Loisirs & Divertissement</span>
-                    </a>
-                </div>
-                
-                <!-- Séparateur -->
-                <div class="divider"></div>
-                
-                <!-- Section 3: Autres catégories -->
-                <div class="dropdown-section">
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-hammer"></i>
-                        <span>Services</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-paw"></i>
-                        <span>Animaux</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-book"></i>
-                        <span>Livres & Magazines</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-gift"></i>
-                        <span>Autres</span>
-                    </a>
-                </div>
+               
             </div>
         </div>
 
@@ -609,153 +591,92 @@
                 
                 <!-- Liste scrollable des villes du Maroc -->
                 <div class="city-list">
+                    @foreach($allVilles as $ville)
                     <a href="#" class="dropdown-item">
                         <i class="fa-solid fa-map-pin"></i>
-                        <span>Agadir</span>
+                        <span>{{ $ville->nom }}</span>
+                        
+                  
                     </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Assilah</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Beni Mellal</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Chefchaouen</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>El Jadida</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Essaouira</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Kenitra</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Larache</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Meknes</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Mohammedia</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Nador</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Ouarzazate</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Oujda</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Safi</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Sale</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Settat</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Tetouan</span>
-                    </a>
-                </div>
-            </div>
-        </div>
+                    @endforeach
+                </div></div></div>
+<!-- Navigation principale contenant les dropdowns et la recherche -->
+    <!-- Dropdown Catégories (continued from previous code) -->
+    <!-- ... -->
 
-        <!-- Barre de recherche -->
-        <div class="search-container">
-            <div class="search-bar">
-                <input type="text" placeholder="Rechercher..." aria-label="Rechercher des annonces" />
-                <button type="submit">
-                    <i class="fa-solid fa-search"></i>
-                </button>
-            </div>
+    <!-- Barre de recherche -->
+    <div class="search-container">
+        <div class="search-bar">
+            <input type="text" placeholder="Rechercher..." aria-label="Rechercher des annonces" />
+            <button type="submit">
+                <i class="fa-solid fa-search"></i>
+            </button>
         </div>
     </div>
+</div>
 
-    <!-- Actions (boutons de connexion et publication) -->
-    <div class="actions">
-        <!-- Section invité - visible uniquement pour les utilisateurs non connectés -->
-        @guest
-        <a href="{{ route('form') }}">
-            <button class="btn btn-login" id="login-btn">
-                <i class="fa-solid fa-right-to-bracket"></i>
-                Connexion
-            </button>
-        </a>  
-        @endguest   
-       
-        <!-- Section utilisateur connecté - visible uniquement pour les utilisateurs connectés -->
-        @auth
-        <div class="demo-container102">
-            <button class="profile-button102">
-                <div class="profile-icon102">
-                    <i class="fa-solid fa-user"></i>
-                </div>
-                <span class="profile-name102">{{ Auth::user()->nom }}</span>
-                <i class="fa-solid fa-chevron-down chevron102"></i>
-                
-                <div class="dropdown-menu102">
-                    <a href="#" class="dropdown-item102">
-                        <i class="fa-regular fa-newspaper"></i>
-                        <span>Mes annonces</span>
-                    </a>
-                    <a href="#" class="dropdown-item102">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <span>Mes commandes</span>
-                    </a>
-                    <a href="#" class="dropdown-item102">
-                        <i class="fa-regular fa-heart"></i>
-                        <span>Mes favoris</span>
-                    </a>
-                    <a href="#" class="dropdown-item102">
-                        <i class="fa-regular fa-comments"></i>
-                        <span>Chat</span>
-                    </a>
-                    <a href="#" class="dropdown-item102">
-                        <i class="fa-solid fa-gear"></i>
-                        <span>Réglages</span>
-                    </a>
-                    <div class="divider102"></div>
-                    <!-- Bouton de déconnexion -->
-                    <a href="#" class="dropdown-item102">
-                        <i class="fa-solid fa-gear"></i>
-                        <span>deconnexion</span>
-                    </a>
-                </div>
-            </button>
-        </div> 
-        @endauth   
-       
-        <!-- Bouton déposer une annonce (visible pour tous) -->
-        <a href="">
-            <button class="btn btn-publish" id="publish-btn">
-                <i class="fa-solid fa-square-plus"></i>
-                Déposer une annonce 
-            </button>
-        </a>
-    </div>
-</nav>
-
+<!-- Actions (boutons de connexion et publication) -->
+<div class="actions">
+    <!-- Section invité - visible uniquement pour les utilisateurs non connectés -->
+    @if(!Session::has('user_id'))
+    <a href="{{ route('form') }}">
+        <button class="btn btn-login" id="login-btn">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Connexion
+        </button>
+    </a>  
+    @endif   
    
+    <!-- Section utilisateur connecté - visible uniquement pour les utilisateurs connectés -->
+    @if(Session::has('user_id'))
+    <div class="demo-container102">
+        <button class="profile-button102">
+            <div class="profile-icon102">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <span class="profile-name102">{{ Session::get('user_name') }}</span>
+            <i class="fa-solid fa-chevron-down chevron102"></i>
+            
+            <div class="dropdown-menu102">
+                <a href="#" class="dropdown-item102">
+                    <i class="fa-regular fa-newspaper"></i>
+                    <span>Mes annonces</span>
+                </a>
+                <a href="#" class="dropdown-item102">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>Mes commandes</span>
+                </a>
+                <a href="#" class="dropdown-item102">
+                    <i class="fa-regular fa-heart"></i>
+                    <span>Mes favoris</span>
+                </a>
+                <a href="#" class="dropdown-item102">
+                    <i class="fa-regular fa-comments"></i>
+                    <span>Chat</span>
+                </a>
+                <a href="#" class="dropdown-item102">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Réglages</span>
+                </a>
+                <div class="divider102"></div>
+                <!-- Bouton de déconnexion -->
+                <a href="{{ route('logout') }}" class="dropdown-item102">
+                    <i class="fa-solid fa-sign-out-alt"></i>
+                    <span>Déconnexion</span>
+                </a>
+            </div>
+        </button>
+    </div> 
+    @endif   
+   
+    <!-- Bouton déposer une annonce (visible pour tous) -->
+    <a href="#">
+        <button class="btn btn-publish" id="publish-btn">
+            <i class="fa-solid fa-square-plus"></i>
+            Déposer une annonce 
+        </button>
+    </a>
+</div>
+</nav>
 </body>
 </html>

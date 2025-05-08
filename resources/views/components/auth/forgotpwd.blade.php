@@ -236,22 +236,47 @@
                     <p class="auth-subtitle">Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.</p>
                 </div>
     
+                <!-- Flash Messages -->
+                @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{ Session::get('success') }}
+                </div>
+                @endif
+                
+                @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{ Session::get('error') }}
+                </div>
+                @endif
+                
+                @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul style="margin: 0; padding-left: 20px;">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                
                 <!-- Formulaire de réinitialisation -->
-                <form id="resetPasswordForm" class="auth-form" action="reset-password" method="POST">
+                <form id="resetPasswordForm" class="auth-form" action="{{ route('password.email') }}" method="POST">
+                    @csrf
                     <div class="form-group">
                         <label class="form-label">Email</label>
-                        <input type="email" name="email" class="form-input" placeholder="Entrez votre email" required>
+                        <input type="email" name="email" class="form-input {{ $errors->has('email') ? 'is-invalid' : '' }}" 
+                               placeholder="Entrez votre email" value="{{ old('email') }}" required>
+                        @if($errors->has('email'))
+                            <div class="invalid-feedback">{{ $errors->first('email') }}</div>
+                        @endif
                     </div>
      
                     <button type="submit" class="submit-btn">Envoyer le lien de réinitialisation</button>
                     
-                    <a href="" class="back-link">Retour à la page de connexion</a>
+                    <a href="{{ route('form') }}" class="back-link">Retour à la page de connexion</a>
                 </form>
             </div>
         </div>
     </div>
-     
-    
 </body>
 </html>

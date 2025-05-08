@@ -140,6 +140,16 @@
         background-color: #f9fafb;
         transition: all 0.3s ease;
     }
+    
+    .form-input.is-invalid {
+        border-color: #ef4444;
+    }
+    
+    .invalid-feedback {
+        color: #ef4444;
+        font-size: 12px;
+        margin-top: 4px;
+    }
  
     .form-input:focus {
         outline: none;
@@ -228,9 +238,6 @@
         }
     }
  
-   
-    
- 
     /* Responsive design */
     @media (max-width: 750px) {
         .auth-left {
@@ -275,6 +282,26 @@
             color: #4b5563;
             cursor: pointer;
         }
+    
+    /* Alert Styles */
+    .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 8px;
+    }
+    
+    .alert-success {
+        color: #0f5132;
+        background-color: #d1e7dd;
+        border-color: #badbcc;
+    }
+    
+    .alert-danger {
+        color: #842029;
+        background-color: #f8d7da;
+        border-color: #f5c2c7;
+    }
     </style>
 </head>
 <body>
@@ -295,29 +322,55 @@
                 </div>
     
                 <!-- Flash Messages -->
-                <div id="success-alert" class="alert alert-success" style="display: none;"></div>
-                <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
+                @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{ Session::get('success') }}
+                </div>
+                @endif
+                
+                @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{ Session::get('error') }}
+                </div>
+                @endif
+                
+                @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul style="margin: 0; padding-left: 20px;">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
      
                 <!-- Navigation entre connexion et inscription -->
                 <div class="auth-tabs">
-                    <button class="auth-tab active" onclick="switchTab('login')">Connexion</button>
-                    <button class="auth-tab" onclick="switchTab('register')">Inscription</button>
+                    <button class="auth-tab {{ !Session::has('register_form') ? 'active' : '' }}" onclick="switchTab('login')">Connexion</button>
+                    <button class="auth-tab {{ Session::has('register_form') ? 'active' : '' }}" onclick="switchTab('register')">Inscription</button>
                 </div>
      
                 <!-- Formulaire de connexion -->
-               <!-- Formulaire de connexion -->
-                <form id="loginForm" class="auth-form active" action="login" method="POST">
-                    
+                <form id="loginForm" class="auth-form {{ !Session::has('register_form') ? 'active' : '' }}" action="{{ route('login') }}" method="POST">
+                    @csrf
                     <div class="form-group">
                         <label class="form-label">Email</label>
-                        <input type="email" name="email" class="form-input" placeholder="Entrez votre email" required>
+                        <input type="email" name="email" class="form-input {{ $errors->has('email') && !Session::has('register_form') ? 'is-invalid' : '' }}" 
+                               placeholder="Entrez votre email" value="{{ old('email') }}" required>
+                        @if($errors->has('email') && !Session::has('register_form'))
+                            <div class="invalid-feedback">{{ $errors->first('email') }}</div>
+                        @endif
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Mot de passe</label>
-                        <input type="password" name="password" class="form-input" placeholder="Entrez votre mot de passe" required>
+                        <input type="password" name="password" class="form-input {{ $errors->has('password') && !Session::has('register_form') ? 'is-invalid' : '' }}" 
+                               placeholder="Entrez votre mot de passe" required>
+                        @if($errors->has('password') && !Session::has('register_form'))
+                            <div class="invalid-feedback">{{ $errors->first('password') }}</div>
+                        @endif
                         <div class="forgot-password">
-                            <a href="reset-password.html" class="forgot-password-link">Mot de passe oublié ?</a>
+                            <a href="{{ route('password.request') }}" class="forgot-password-link">Mot de passe oublié ?</a>
                         </div>
                     </div>
 
@@ -328,34 +381,52 @@
 
                     <button type="submit" class="submit-btn">Connexion</button>
                 </form>
+                
                 <!-- Formulaire d'inscription -->
-                <form id="registerForm" class="auth-form" action="register" method="POST">
-                    
+                <form id="registerForm" class="auth-form {{ Session::has('register_form') ? 'active' : '' }}" action="{{ route('register') }}" method="POST">
+                    @csrf
                     <div class="form-group">
                         <label class="form-label">Nom complet</label>
-                        <input type="text" name="name" class="form-input" placeholder="Entrez votre nom complet" required>
+                        <input type="text" name="name" class="form-input {{ $errors->has('name') && Session::has('register_form') ? 'is-invalid' : '' }}" 
+                               placeholder="Entrez votre nom complet" value="{{ old('name') }}" required>
+                        @if($errors->has('name') && Session::has('register_form'))
+                            <div class="invalid-feedback">{{ $errors->first('name') }}</div>
+                        @endif
                     </div>
                 
                     <div class="form-group">
                         <label class="form-label">Email</label>
-                        <input type="email" name="email" class="form-input" placeholder="Entrez votre email" required>
+                        <input type="email" name="email" class="form-input {{ $errors->has('email') && Session::has('register_form') ? 'is-invalid' : '' }}" 
+                               placeholder="Entrez votre email" value="{{ old('email') }}" required>
+                        @if($errors->has('email') && Session::has('register_form'))
+                            <div class="invalid-feedback">{{ $errors->first('email') }}</div>
+                        @endif
                     </div>
                 
                     <div class="form-group">
                         <label class="form-label">Numéro de téléphone</label>
                         <div class="phone-input-wrapper">
-                            <input type="tel" name="phone" class="phone-input" placeholder="Ex: 623332123" required>
+                            <input type="tel" name="phone" class="phone-input {{ $errors->has('phone') && Session::has('register_form') ? 'is-invalid' : '' }}" 
+                                   placeholder="Ex: 623332123" value="{{ old('phone') }}" required>
                         </div>
+                        @if($errors->has('phone') && Session::has('register_form'))
+                            <div class="invalid-feedback">{{ $errors->first('phone') }}</div>
+                        @endif
                     </div>
                 
                     <div class="form-group">
                         <label class="form-label">Mot de passe</label>
-                        <input type="password" name="password" class="form-input" placeholder="Créez un mot de passe" required>
+                        <input type="password" name="password" class="form-input {{ $errors->has('password') && Session::has('register_form') ? 'is-invalid' : '' }}" 
+                               placeholder="Créez un mot de passe" required>
+                        @if($errors->has('password') && Session::has('register_form'))
+                            <div class="invalid-feedback">{{ $errors->first('password') }}</div>
+                        @endif
                     </div>
                 
                     <div class="form-group">
                         <label class="form-label">Confirmez le mot de passe</label>
-                        <input type="password" name="password_confirmation" class="form-input" placeholder="Confirmez le mot de passe" required>
+                        <input type="password" name="password_confirmation" class="form-input" 
+                               placeholder="Confirmez le mot de passe" required>
                     </div>
                 
                     <button type="submit" class="submit-btn">S'inscrire</button>
@@ -390,13 +461,11 @@
         
         // Initialiser le bon onglet au chargement
         document.addEventListener('DOMContentLoaded', function() {
-            // Check URL parameters for any error indications
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('register')) {
+            @if(Session::has('register_form') || old('name'))
                 switchTab('register');
-            } else {
+            @else
                 switchTab('login');
-            }
+            @endif
         });
     </script>
 </body>

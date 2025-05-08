@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Register the GlobalDataServiceProvider
+        $this->app->register(GlobalDataServiceProvider::class);
     }
 }
