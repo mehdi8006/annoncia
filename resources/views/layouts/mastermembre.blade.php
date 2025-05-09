@@ -25,11 +25,6 @@
 </head>
 <body>
     @include('components.nav')
-    <div class="sidebarre">
-            @include('components.membre.sidebarre')
-
-    </div>
-    @include('components.membre.sidebarre')
 <div class="main">
     @yield('main')
   
