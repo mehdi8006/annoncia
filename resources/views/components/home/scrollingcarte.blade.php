@@ -348,8 +348,14 @@
 
             <!-- Image du produit -->
             <div class="product-image1">
+    @foreach($ad->images as $image)
+        @if($image->principale == 1)
+            <img src="{{ asset($image->url) }}" alt="Image principale">
+            @break
+        @endif
+    @endforeach
+</div>
 
-            </div>
 
             <div class="product-details1">
                 <!-- Localisation -->

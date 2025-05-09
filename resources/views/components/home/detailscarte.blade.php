@@ -506,12 +506,28 @@
            
             <div class="product-top4">
                 <div class="product-gallery4">
-                    <img src="/api/placeholder/800/600" alt="Main product image" class="main-image4">
-                    <div class="thumbnail-container4">
-                        <img src="/api/placeholder/80/80" alt="Thumbnail 1" class="thumbnail4 active">
-                        <img src="/api/placeholder/80/80" alt="Thumbnail 2" class="thumbnail4">
-                        <img src="/api/placeholder/80/80" alt="Thumbnail 3" class="thumbnail4">
-                        <img src="/api/placeholder/80/80" alt="Thumbnail 4" class="thumbnail4">
+                @foreach($ad->images as $image)
+                    @if($image->principale == 1)
+                        <img src="{{ asset($image->url) }}" alt="Main product image" class="main-image4">
+                        @break
+                    @endif
+                @endforeach                    
+                        <div class="thumbnail-container4">
+                        @if(isset($ad->images[0]->url))
+                            <img src="{{ asset($ad->images[0]->url) }}" alt="Thumbnail 1" class="thumbnail4 active">
+                        @endif
+                        @if(isset($ad->images[1]->url))
+                            <img src="{{ asset(path: $ad->images[1]->url) }}" alt="Thumbnail 2" class="thumbnail4">
+                        @endif
+                        @if(isset($ad->images[2]->url) )
+                            <img src="{{ asset($ad->images[2]->url) }}" alt="Thumbnail 3" class="thumbnail4">
+                        @endif
+                        @if(isset($ad->images[3]->url))
+                            <img src="{{ asset($ad->images[3]->url) }}" alt="Thumbnail 4" class="thumbnail4">
+                        @endif
+                        @if(isset($ad->images[4]->url))
+                            <img src="{{ asset($ad->images[4]->url) }}" alt="Thumbnail 5" class="thumbnail4">
+                        @endif  
                     </div>
                 </div>
                 
