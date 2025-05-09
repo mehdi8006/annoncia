@@ -519,10 +519,11 @@
     <!-- Navigation bar with logout button (in the authenticated user dropdown) -->
 <nav class="navbar" role="navigation" aria-label="Barre de navigation principale">
     <!-- Logo avec icône shopping -->
+    <a href="{{ route('homeshow') }}">
     <div class="logo-text">
         <i class="fa-solid fa-bag-shopping"></i> Annoncia
     </div>
-
+    </a>
     <!-- Navigation principale contenant les dropdowns et la recherche -->
     <div class="main-navigation">
         <!-- Dropdown Catégories -->
