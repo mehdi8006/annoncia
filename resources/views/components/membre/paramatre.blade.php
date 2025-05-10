@@ -1,6 +1,16 @@
-
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Profil</title>
     <style>
-      
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
         h1 {
             color: #333;
             margin-bottom: 30px;
@@ -82,7 +92,8 @@
             }
         }
     </style>
-
+</head>
+<body>
     <h1>Mon Profil</h1>
     
     <!-- Messages de succès ou d'erreur (à afficher conditionnellement) -->
@@ -131,9 +142,7 @@
                 <div class="form-group">
                     <label for="new_password">Nouveau mot de passe</label>
                     <input type="password" id="new_password" name="new_password" required minlength="8">
-                    <div class="password-requirements">
-                        Le mot de passe doit contenir au moins 8 caractères.
-                    </div>
+                    
                 </div>
                 
                 <div class="form-group">
@@ -145,3 +154,5 @@
             </form>
         </div>
     </div>
+</body>
+</html>

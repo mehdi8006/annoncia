@@ -223,58 +223,12 @@
                     </td>
                     <td data-label="Action">
                         <a href="#" class="view-btn">
-                            <span class="view-icon">👁️</span> Voir
+                            <span class="view-icon"></span> Voir
                         </a>
                     </td>
                 </tr>
                 
-                <!-- Ad Item 2 -->
-                <tr>
-                    <td data-label="Image">
-                        <img src="/api/placeholder/200/150" alt="iPhone 14" class="ad-image">
-                    </td>
-                    <td data-label="Titre" class="ad-title">iPhone 14 Pro Max - Comme Neuf</td>
-                    <td data-label="Catégorie">
-                        <span class="category-badge">Électronique</span>
-                    </td>
-                    <td data-label="Action">
-                        <a href="#" class="view-btn">
-                            <span class="view-icon">👁️</span> Voir
-                        </a>
-                    </td>
-                </tr>
-                
-                <!-- Ad Item 3 -->
-                <tr>
-                    <td data-label="Image">
-                        <img src="/api/placeholder/200/150" alt="Canapé en Cuir" class="ad-image">
-                    </td>
-                    <td data-label="Titre" class="ad-title">Canapé en Cuir Vintage</td>
-                    <td data-label="Catégorie">
-                        <span class="category-badge">Mobilier</span>
-                    </td>
-                    <td data-label="Action">
-                        <a href="#" class="view-btn">
-                            <span class="view-icon">👁️</span> Voir
-                        </a>
-                    </td>
-                </tr>
-                
-                <!-- Ad Item 4 -->
-                <tr>
-                    <td data-label="Image">
-                        <img src="/api/placeholder/200/150" alt="Toyota Camry" class="ad-image">
-                    </td>
-                    <td data-label="Titre" class="ad-title">Toyota Camry 2023 - Faible Kilométrage</td>
-                    <td data-label="Catégorie">
-                        <span class="category-badge">Véhicules</span>
-                    </td>
-                    <td data-label="Action">
-                        <a href="#" class="view-btn">
-                            <span class="view-icon">👁️</span> Voir
-                        </a>
-                    </td>
-                </tr>
+              
             </tbody>
         </table>
     </div>

@@ -20,3 +20,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // Password Reset Routes
 Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
 Route::post('/reset-password', [AuthController::class, 'forgotPassword'])->name('password.email');
+// Password Reset Routes
+Route::get('/m', function () {
+    return view('espacemembre');
+});
