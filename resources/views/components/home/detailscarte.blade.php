@@ -508,27 +508,29 @@
                 <div class="product-gallery4">
                 @foreach($ad->images as $image)
                     @if($image->principale == 1)
-                        <img src="{{ asset($image->url) }}" alt="Main product image" class="main-image4">
-                        @break
-                    @endif
-                @endforeach                    
-                        <div class="thumbnail-container4">
-                        @if(isset($ad->images[0]->url))
-                            <img src="{{ asset($ad->images[0]->url) }}" alt="Thumbnail 1" class="thumbnail4 active">
+                        <img rc="{{ asset($image->url) }}" alt="Main product image" class="main-image4">
                         @endif
-                        @if(isset($ad->images[1]->url))
-                            <img src="{{ asset(path: $ad->images[1]->url) }}" alt="Thumbnail 2" class="thumbnail4">
+                          <div class="thumbnail-container4">
+                        @if($ad->images->count() > 0)
+                            <img src="{{ asset('storage/' . $ad->images[0]->url) }}" alt="Thumbnail 1" class="thumbnail4 active">
                         @endif
-                        @if(isset($ad->images[2]->url) )
-                            <img src="{{ asset($ad->images[2]->url) }}" alt="Thumbnail 3" class="thumbnail4">
+                        @if($ad->images->count() > 1)
+                            <img url="{{ asset( 'storage/' . $ad->images[1]->url) }}" alt="Thumbnail 2" class="thumbnail4">
+                        @endif
+                        @if($ad->images->count() > 2)
+                            <img url="{{ asset('storage/' . $ad->images[2]->url) }}" alt="Thumbnail 3" class="thumbnail4">
                         @endif
                         @if(isset($ad->images[3]->url))
-                            <img src="{{ asset($ad->images[3]->url) }}" alt="Thumbnail 4" class="thumbnail4">
+                            <img url="{{ asset('storage/' . $ad->images[3]->url) }}" alt="Thumbnail 4" class="thumbnail4">
                         @endif
                         @if(isset($ad->images[4]->url))
-                            <img src="{{ asset($ad->images[4]->url) }}" alt="Thumbnail 5" class="thumbnail4">
+                            <img url="{{ asset('storage/' . $ad->images[4]->url) }}" alt="Thumbnail 5" class="thumbnail4">
                         @endif  
                     </div>
+                    
+                
+                @endforeach                    
+                       
                 </div>
                 
                 <div class="product-info4">

@@ -614,22 +614,21 @@
             <i class="fa-solid fa-chevron-down chevron102"></i>
             
             <div class="dropdown-menu102">
-                <a href="#" class="dropdown-item102">
+                <a href="{{ route('member.dashboard') }}" class="dropdown-item102">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Tableau de bord</span>
+                </a>
+                <a href="{{ route('member.annonces') }}" class="dropdown-item102">
                     <i class="fa-regular fa-newspaper"></i>
                     <span>Mes annonces</span>
                 </a>
-                <a href="#" class="dropdown-item102">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span>Mes commandes</span>
-                </a>
-                <a href="#" class="dropdown-item102">
+                <a href="{{ route('member.favoris') }}" class="dropdown-item102">
                     <i class="fa-regular fa-heart"></i>
                     <span>Mes favoris</span>
                 </a>
-               
-                <a href="#" class="dropdown-item102">
+                <a href="{{ route('member.parametres') }}" class="dropdown-item102">
                     <i class="fa-solid fa-gear"></i>
-                    <span>Réglages</span>
+                    <span>Paramètres</span>
                 </a>
                 <div class="divider102"></div>
                 <!-- Bouton de déconnexion -->
@@ -643,7 +642,7 @@
     @endif   
    
     <!-- Bouton déposer une annonce (visible pour tous) -->
-    <a href="">
+    <a href="{{ route('member.annonces.create') }}">
         <button class="btn btn-publish" id="publish-btn">
             <i class="fa-solid fa-square-plus"></i>
             Déposer une annonce 
